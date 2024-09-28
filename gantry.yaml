@@ -1,0 +1,6 @@
+# used for local testing
+name: test-application
+
+image:
+  repository: nginx
+  tag: latest
