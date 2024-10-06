@@ -1,13 +1,13 @@
 package gantry.domain
 
-import org.virtuslab.yaml.YamlCodec
+import org.virtuslab.yaml.YamlEncoder
 
 case class Deployment(
     apiVersion: String = "apps/v1",
     kind: String = "Deployment",
     metadata: Deployment.DeploymentMetadata,
     spec: Deployment.Spec
-) derives YamlCodec
+) derives YamlEncoder
 
 object Deployment:
     val fileName = "templates/deployment.yaml"
@@ -36,7 +36,9 @@ object Deployment:
                     Deployment.Container(
                       name = config.name,
                       image = s"${config.image.repository}:${config.image.tag}",
-                      ports = List(Map("containerPort" -> 80)), // TODO: Make this configurable
+                      ports = config.ports.map(port =>
+                          Deployment.Port(Some(port.name), port.containerPort, port.protocol.toModel)
+                      ),
                       imagePullPolicy = imagePullPolicy
                     )
                   )
@@ -46,27 +48,33 @@ object Deployment:
           )
         )
 
-    case class DeploymentMetadata(name: String, labels: Map[String, String]) derives YamlCodec
-    case class TemplateMetadata(annotations: Map[String, String], labels: Map[String, String]) derives YamlCodec
+    case class DeploymentMetadata(name: String, labels: Map[String, String]) derives YamlEncoder
+    case class TemplateMetadata(annotations: Map[String, String], labels: Map[String, String]) derives YamlEncoder
 
     case class Spec(
         replicas: Int,
         selector: Map[String, Map[String, String]],
         template: Template
-    ) derives YamlCodec
+    ) derives YamlEncoder
 
     case class Template(
         metadata: TemplateMetadata,
         spec: TemplateSpec
-    ) derives YamlCodec
+    ) derives YamlEncoder
 
     case class TemplateSpec(
         containers: List[Container]
-    ) derives YamlCodec
+    ) derives YamlEncoder
 
     case class Container(
         name: String,
         image: String,
-        ports: List[Map[String, Int]],
+        ports: List[Port],
         imagePullPolicy: String
-    ) derives YamlCodec
+    ) derives YamlEncoder
+
+    case class Port(
+        name: Option[String],
+        containerPort: Int,
+        protocol: Protocol
+    ) derives YamlEncoder

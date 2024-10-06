@@ -1,9 +1,9 @@
 package gantry.domain
 
-import org.virtuslab.yaml.YamlCodec
+import org.virtuslab.yaml.YamlEncoder
 
 case class Chart(apiVersion: String, name: String, `type`: String, version: String, appVersion: String)
-    derives YamlCodec
+    derives YamlEncoder
 
 object Chart:
     val fileName = "Chart.yaml"

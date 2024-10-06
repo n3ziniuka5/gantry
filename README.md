@@ -13,13 +13,18 @@ Gantry is a tool designed to simplify Kubernetes deployments by abstracting away
 
 ## Example Usage
 
-create a `gantry.yaml` file for your application:
+create a `gantry.yaml` file for your application, here's an example one for nginx:
 ```yaml
 name: nginx
 
 image:
   repository: nginx
   tag: latest
+
+ports:
+  - name: http
+    containerPort: 80 # the port the container listens on
+    servicePort: 80 # if specified, creates a corresponding Service resource so that the pod is accessible via the service port
 ```
 
 Then run `gantry helm install` to generate a Helm chart and install it into your cluster. You do not need to publish the Helm chart to a remote repository.
@@ -72,16 +77,23 @@ For local development and testing, we use the following tools:
 
 ## TODO
 
-- [ ] Basic deployment configuration
-- [ ] Publish binaries
+- [x] Basic deployment configuration
+- [x] Service and port configuration
 - [ ] Use HOCON instead of Yaml to configure Gantry
+- [ ] Publish binaries
 - [ ] Publish doc site
-- [ ] Add "Gantry Compose" to deploy multipe services
-- [ ] Service and port configuration
-- [ ] Resource configuration
+- [ ] Resource and number of replicas configuration
+- [ ] Liveness/Readiness probes
+- [ ] Reference/include other configuration files, e.g. to share between applications
 - [ ] Deployment strategy configuration
 - [ ] Pod Disruption Budget configuration
 - [ ] Secret configuration
 - [ ] Config configuration
 - [ ] Write tests
+- [ ] Pre-stop wait to improve networking
+- [ ] Sidecar support
+- [ ] Cronjob support
+- [ ] Option to replace deployment on service major version change
+- [ ] Configurable entrypoint and command
+- [ ] Add "Gantry Compose" to deploy multipe services
 - [ ] GitHub action to install Gantry CLI

@@ -4,3 +4,8 @@ name: test-application
 image:
   repository: nginx
   tag: latest
+
+ports:
+  - name: http
+    containerPort: 80
+    servicePort: 80
