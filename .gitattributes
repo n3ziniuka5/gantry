@@ -1,0 +1,2 @@
+sbt linguist-vendored
+example-chart/* linguist-generated
