@@ -23,7 +23,7 @@ build-chart:
 install-chart: up
     SBT_NATIVE_CLIENT=true ./sbt "run helm install"
 
-uninstall-chart:
+uninstall-chart: up
     helm uninstall test-application --wait
 
 reinstall-chart: uninstall-chart install-chart
