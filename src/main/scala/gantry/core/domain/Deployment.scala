@@ -1,4 +1,4 @@
-package gantry.domain
+package gantry.core.domain
 
 import org.virtuslab.yaml.YamlEncoder
 
@@ -36,9 +36,8 @@ object Deployment:
                     Deployment.Container(
                       name = config.name,
                       image = s"${config.image.repository}:${config.image.tag}",
-                      ports = config.ports.map(port =>
-                          Deployment.Port(Some(port.name), port.containerPort, port.protocol.toModel)
-                      ),
+                      ports =
+                          config.ports.map(port => Deployment.Port(Some(port.name), port.port, port.protocol.toModel)),
                       imagePullPolicy = imagePullPolicy
                     )
                   )

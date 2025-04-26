@@ -2,3 +2,9 @@ target
 /project/target
 /project/project
 generated-chart
+
+# IDE
+.bloop
+.bsp
+.idea
+.metals

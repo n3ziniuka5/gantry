@@ -1,4 +1,4 @@
-package gantry.util
+package gantry.core.util
 
 import scala.util.boundary
 import scala.util.boundary.{Label, break}
@@ -13,7 +13,7 @@ object EitherBoundary:
                 case a                     => Right(a.asInstanceOf[A])
 
         extension [E, A](either: Either[E, A])(using label: Label[EitherBoundary[E]])
-            def get: A =
+            def ? : A =
                 either match
                     case Right(a) => a
                     case Left(e)  => break(EitherBoundary(e))

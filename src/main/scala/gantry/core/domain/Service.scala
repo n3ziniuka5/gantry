@@ -1,4 +1,4 @@
-package gantry.domain
+package gantry.core.domain
 
 import org.virtuslab.yaml.*
 
@@ -31,7 +31,7 @@ object Service:
     ) derives YamlEncoder
 
     def generate(config: GantryConfig): Option[(fileName: String, value: Service)] =
-        if !config.ports.exists(_.servicePort.isDefined) then None
+        if !config.ports.exists(_.name == "http") then None
         else
             Some(
               fileName,
@@ -44,11 +44,11 @@ object Service:
                   `type` = "ClusterIP",
                   selector = Helpers.selectorLabels,
                   ports = config.ports
-                      .filter(_.servicePort.isDefined)
+                      .filter(_.name == "http")
                       .map(port =>
                           Port(
                             name = Some(port.name),
-                            port = port.servicePort.get,
+                            port = port.port,
                             protocol = port.protocol.toModel,
                             targetPort = port.name
                           )

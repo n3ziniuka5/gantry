@@ -1,4 +1,4 @@
-package gantry.domain
+package gantry.core.domain
 
 import org.virtuslab.yaml.YamlEncoder
 
