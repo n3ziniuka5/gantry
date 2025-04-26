@@ -1,10 +1,8 @@
-package gantry.domain
-
-import org.virtuslab.yaml.YamlError
+package gantry.core.domain
 
 enum AppError:
     case FailedToReadFile(path: os.Path, cause: Throwable)
-    case FailedToParseYaml(path: os.Path, cause: YamlError)
+    case FailedToParseConfig(path: os.Path, cause: Throwable)
     case InvalidPath(path: String, cause: Throwable)
     case FailedToRemoveFile(path: os.Path, cause: Throwable)
     case FailedToWriteFile(path: os.Path, cause: Throwable)
@@ -14,7 +12,8 @@ enum AppError:
         case InvalidPath(path: String, cause: Throwable) => s"Invalid path: $path: $cause"
         case FailedToReadFile(path: os.Path, cause: Throwable) =>
             s"Could not read file: $cause"
-        case FailedToParseYaml(path: os.Path, cause: YamlError)  => s"Could not parse $path as yaml file: $cause"
+        case FailedToParseConfig(path: os.Path, cause: Throwable) =>
+            s"Could not parse $path as a HOCON config file: $cause"
         case FailedToRemoveFile(path: os.Path, cause: Throwable) => s"Could not remove file $path: $cause"
         case FailedToWriteFile(path: os.Path, cause: Throwable)  => s"Could not write file $path: $cause"
         case FailedToRunCommand(command: os.proc, exitCode: Int) =>

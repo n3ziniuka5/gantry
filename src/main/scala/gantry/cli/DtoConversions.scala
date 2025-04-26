@@ -1,6 +1,6 @@
-package gantry.util
+package gantry.cli
 
-import gantry.domain.AppError
+import gantry.core.domain.AppError
 import scala.util.Try
 import caseapp.core.argparser.ArgParser
 

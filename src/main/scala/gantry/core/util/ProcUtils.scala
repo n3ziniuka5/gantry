@@ -1,6 +1,6 @@
-package gantry.util
+package gantry.core.util
 
-import gantry.domain.AppError
+import gantry.core.domain.AppError
 
 object ProcUtils:
     extension (p: os.proc)

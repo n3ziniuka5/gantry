@@ -1,4 +1,4 @@
-package gantry.domain
+package gantry.core.domain
 
 object Helpers:
     val fileName    = "templates/_helpers.tpl"

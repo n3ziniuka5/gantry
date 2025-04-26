@@ -1,3 +1,6 @@
+help:
+  just --list
+
 up:
     #!/usr/bin/env bash
     if ! kind get clusters | grep -q "^gantry$"; then
@@ -24,7 +27,7 @@ install-chart: up
     SBT_NATIVE_CLIENT=true ./sbt "run helm install"
 
 uninstall-chart: up
-    helm uninstall test-application --wait
+    helm uninstall test-application --wait | true
 
 reinstall-chart: uninstall-chart install-chart
 

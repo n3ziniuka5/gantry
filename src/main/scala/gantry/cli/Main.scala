@@ -1,17 +1,17 @@
-package gantry
+package gantry.cli
 
 import caseapp.core.app.CommandsEntryPoint
 import caseapp.core.argparser.ArgParser
 import caseapp.core.help.{RuntimeCommandHelp, RuntimeCommandsHelp}
 import caseapp.{Command, HelpMessage, Name, RemainingArgs}
-import gantry.domain.AppError
-import gantry.usecases.GantryUseCase
-import gantry.util.DtoConversions.given_ArgParser_Path
+import gantry.core.domain.AppError
+import gantry.core.usecases.GantryUseCase
+import gantry.cli.DtoConversions.given_ArgParser_Path
 import caseapp.Recurse
 
 case class CommonHelmOptions(
     @Name("f")
-    gantryFile: os.Path = os.pwd / "gantry.yaml",
+    gantryFile: os.Path = os.pwd / "gantry.conf",
 )
 
 case class BuildOptions(
